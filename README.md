@@ -49,3 +49,71 @@
     We also like to show how well we're testing, so there's a module called 
     [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) you should add to your project.
 
+    ### Running Tests
+
+    The project uses pytest for testing. To run the tests:
+
+    1. Make sure you're in your virtual environment:
+       ```bash
+       source bin/activate  # On Unix/Mac
+       .\Scripts\activate   # On Windows
+       ```
+
+    2. Install test dependencies:
+       ```bash
+       pip install -r requirements.txt
+       ```
+
+    3. Run all tests:
+       ```bash
+       pytest
+       ```
+
+    4. Run tests with verbose output:
+       ```bash
+       pytest -v
+       ```
+
+    5. Run specific test files:
+       ```bash
+       pytest tests/unit_tests/test_login.py
+       pytest tests/integration_tests/test_login_flow.py
+       ```
+
+6. Running the Flask Application
+
+    To run the Flask application:
+
+    1. Make sure you're in your virtual environment:
+       ```bash
+       source bin/activate  # On Unix/Mac
+       .\Scripts\activate   # On Windows
+       ```
+
+    2. Set the Flask environment variable:
+       ```bash
+       # On Unix/Mac
+       export FLASK_APP=server.py
+       # On Windows
+       set FLASK_APP=server.py
+       ```
+
+    3. Run the application:
+       ```bash
+       flask run
+       ```
+       or
+       ```bash
+       python -m flask run
+       ```
+
+    4. Access the application at http://127.0.0.1:5000 in your web browser
+
+    Note: For development, you can enable debug mode:
+    ```bash
+    # On Unix/Mac
+    export FLASK_DEBUG=1
+    # On Windows
+    set FLASK_DEBUG=1
+    ```
+
