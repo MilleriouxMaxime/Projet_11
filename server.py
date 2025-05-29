@@ -1,5 +1,6 @@
 import json
 from flask import Flask, render_template, request, redirect, flash, url_for
+from datetime import datetime
 
 
 def loadClubs():
@@ -33,12 +34,12 @@ def showSummary():
         if not email:
             flash("Please enter your email")
             return redirect(url_for("index"))
-        
+
         club = next((club for club in clubs if club["email"] == email), None)
         if not club:
             flash("Email not found")
             return redirect(url_for("index"))
-            
+
         return render_template("welcome.html", club=club, competitions=competitions)
     except Exception as e:
         flash("An error occurred. Please try again.")
@@ -47,14 +48,36 @@ def showSummary():
 
 @app.route("/book/<competition>/<club>")
 def book(competition, club):
-    foundClub = [c for c in clubs if c["name"] == club][0]
-    foundCompetition = [c for c in competitions if c["name"] == competition][0]
-    if foundClub and foundCompetition:
+    try:
+        # Find club and competition
+        foundClub = next((c for c in clubs if c["name"] == club), None)
+        foundCompetition = next(
+            (c for c in competitions if c["name"] == competition), None
+        )
+
+        if not foundClub:
+            flash("Club not found")
+            return redirect(url_for("index"))
+
+        if not foundCompetition:
+            flash("Competition not found")
+            return redirect(url_for("index"))
+
+        # Check if competition is in the past
+        competition_date = datetime.strptime(
+            foundCompetition["date"], "%Y-%m-%d %H:%M:%S"
+        )
+        if competition_date < datetime.now():
+            flash("Cannot book places for past competitions")
+            return render_template(
+                "welcome.html", club=foundClub, competitions=competitions
+            )
+
         return render_template(
             "booking.html", club=foundClub, competition=foundCompetition
         )
-    else:
-        flash("Something went wrong-please try again")
+    except Exception as e:
+        flash("An error occurred. Please try again.")
         return render_template("welcome.html", club=club, competitions=competitions)
 
 
