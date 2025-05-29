@@ -2,22 +2,11 @@ import pytest
 from flask import Flask
 from server import app, loadClubs
 
-@pytest.fixture
-def client():
-    app.config.update({
-        'TESTING': True,
-        'WTF_CSRF_ENABLED': False
-    })
-    with app.test_client() as client:
-        yield client
 
-@pytest.fixture
-def clubs():
-    return loadClubs()
 
-def test_login_with_valid_email(client, clubs):
+def test_login_with_valid_email(client, mock_clubs):
     """Test login with a valid email"""
-    response = client.post('/showSummary', data={'email': clubs[0]['email']}, follow_redirects=True)
+    response = client.post('/showSummary', data={'email': mock_clubs[0]['email']}, follow_redirects=True)
     assert response.status_code == 200
     assert b'Welcome' in response.data
 
