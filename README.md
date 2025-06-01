@@ -117,3 +117,22 @@
     set FLASK_DEBUG=1
     ```
 
+## Running Tests with Coverage
+
+To run the test suite with coverage reporting:
+
+```bash
+# Run all tests with coverage report
+pytest --cov=server tests/
+
+# Generate a detailed HTML coverage report
+pytest --cov=server --cov-report=html tests/
+```
+
+The coverage report will show:
+- Percentage of code covered by tests
+- Which lines of code are covered/not covered
+- Overall project coverage statistics
+
+The HTML report will be generated in the `htmlcov` directory, where you can view a detailed, interactive coverage report in your browser.
+
