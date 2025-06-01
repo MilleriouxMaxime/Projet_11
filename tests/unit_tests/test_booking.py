@@ -3,9 +3,7 @@ from datetime import datetime, timedelta
 
 def test_book_valid_competition(client, mock_clubs, mock_competitions):
     """Test booking a valid competition"""
-    # Login first
     club = next(club for club in mock_clubs if int(club["points"]) > 0)
-    client.post("/showSummary", data={"email": club["email"]}, follow_redirects=True)
 
     # Try to book a future competition
     future_competition = next(
@@ -23,9 +21,7 @@ def test_book_valid_competition(client, mock_clubs, mock_competitions):
 
 def test_book_past_competition(client, mock_clubs, mock_competitions):
     """Test booking a past competition"""
-    # Login first
     club = next(club for club in mock_clubs if int(club["points"]) > 0)
-    client.post("/showSummary", data={"email": club["email"]}, follow_redirects=True)
 
     # Use the past competition from mock data
     past_competition = next(
