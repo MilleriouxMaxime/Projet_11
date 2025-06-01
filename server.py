@@ -119,7 +119,16 @@ def purchasePlaces():
     return render_template("welcome.html", club=club, competitions=competitions)
 
 
-# TODO: Add route for points display
+@app.route("/points")
+def points():
+    """Display all clubs and their points"""
+    try:
+        # Sort clubs by points in descending order
+        sorted_clubs = sorted(clubs, key=lambda x: int(x["points"]), reverse=True)
+        return render_template("points.html", clubs=sorted_clubs)
+    except Exception as e:
+        flash("An error occurred while loading points.")
+        return redirect(url_for("index"))
 
 
 @app.route("/logout")
