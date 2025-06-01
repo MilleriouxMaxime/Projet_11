@@ -92,3 +92,34 @@ def test_cannot_book_more_than_available_places(client, mock_clubs, mock_competi
     assert f"Points available: {initial_points}" in response.data.decode()
     print(response.data.decode())
     assert "Not enough places available in the competition" in response.data.decode()
+
+
+def test_cannot_book_more_than_twelve_places(client, mock_clubs, mock_competitions):
+    """Test that a club cannot book more than 12 places per competition"""
+    # Find a club that has enough points
+    club = next(club for club in mock_clubs if int(club["points"]) > 12)
+    initial_points = int(club["points"])
+
+    # Find a future competition
+    future_competition = next(
+        comp
+        for comp in mock_competitions
+        if datetime.strptime(comp["date"], "%Y-%m-%d %H:%M:%S") > datetime.now()
+    )
+
+    # Try to book 13 places
+    places_to_book = 13
+    response = client.post(
+        "/purchasePlaces",
+        data={
+            "competition": future_competition["name"],
+            "club": club["name"],
+            "places": places_to_book,
+        },
+        follow_redirects=True,
+    )
+
+    # Check that points were not deducted
+    assert response.status_code == 200
+    assert f"Points available: {initial_points}" in response.data.decode()
+    assert "Cannot book more than 12 places per competition" in response.data.decode()
