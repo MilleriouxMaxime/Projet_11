@@ -1,5 +1,4 @@
 from locust import HttpUser, task, between
-import random
 
 class GUDLFTUser(HttpUser):
     host = "http://localhost:5000"  # Ajout de l'hôte de base

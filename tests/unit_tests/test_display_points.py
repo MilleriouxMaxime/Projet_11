@@ -1,6 +1,3 @@
-import pytest
-
-
 def test_points_display(client, mock_clubs):
     """Test the points display page"""
     response = client.get("/points")

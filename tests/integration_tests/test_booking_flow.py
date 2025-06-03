@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 def test_complete_booking_flow(client, mock_clubs, mock_competitions):
