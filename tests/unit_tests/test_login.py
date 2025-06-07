@@ -1,9 +1,3 @@
-import pytest
-from flask import Flask
-from server import app, loadClubs
-
-
-
 def test_login_with_valid_email(client, mock_clubs):
     """Test login with a valid email"""
     response = client.post('/showSummary', data={'email': mock_clubs[0]['email']}, follow_redirects=True)

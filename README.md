@@ -117,3 +117,101 @@
     set FLASK_DEBUG=1
     ```
 
+## Running Tests with Coverage
+
+To run the test suite with coverage reporting:
+
+```bash
+# Run all tests with coverage report
+pytest --cov=server tests/
+
+# Generate a detailed HTML coverage report
+pytest --cov=server --cov-report=html tests/
+```
+
+The coverage report will show:
+- Percentage of code covered by tests
+- Which lines of code are covered/not covered
+- Overall project coverage statistics
+
+The HTML report will be generated in the `htmlcov` directory, where you can view a detailed, interactive coverage report in your browser.
+
+## Load Testing with Locust
+
+The project includes load testing capabilities using Locust. This helps simulate multiple users accessing the application simultaneously.
+
+### Running Load Tests
+
+There are two ways to run Locust tests:
+
+#### 1. Using the Web Interface (Recommended for beginners)
+
+1. Make sure you're in your virtual environment and have installed the requirements:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+2. Start the Flask application in one terminal:
+   ```bash
+   flask run
+   ```
+
+3. In another terminal, run Locust:
+   ```bash
+   locust
+   ```
+
+4. Open your browser and go to http://localhost:8089
+
+5. Configure your test:
+   - Number of users to simulate
+   - Spawn rate (users per second)
+   - Host (http://localhost:5000)
+
+6. Click "Start swarming" to begin the load test
+
+#### 2. Using Command Line (Advanced)
+
+You can also run Locust directly from the command line with predefined parameters:
+
+```bash
+# Run with 10 users, spawn rate of 1 user/second
+locust --users 10 --spawn-rate 1 --host http://localhost:5000
+
+# Run in headless mode (no web interface)
+locust --users 10 --spawn-rate 1 --host http://localhost:5000 --headless
+
+# Run for a specific duration (e.g., 1 minute)
+locust --users 10 --spawn-rate 1 --host http://localhost:5000 --headless --run-time 1m
+
+# Run with a specific test file
+locust -f locustfile.py --users 10 --spawn-rate 1 --host http://localhost:5000
+```
+
+Common command line options:
+- `--users`: Number of users to simulate
+- `--spawn-rate`: Users spawned per second
+- `--host`: Target host URL
+- `--headless`: Run without web interface
+- `--run-time`: Duration of the test (e.g., 1m, 1h)
+- `-f`: Specify the locustfile to use
+
+### Test Scenarios
+
+The load test simulates the following user behaviors:
+- Viewing competitions (weight: 3)
+- Booking places (weight: 2)
+- Viewing points board (weight: 1)
+
+The weights determine how frequently each action is performed relative to others.
+
+### Understanding Results
+
+Locust provides real-time metrics including:
+- Requests per second
+- Response times
+- Number of users
+- Failure rates
+
+You can also download the test results in CSV format for further analysis.
+

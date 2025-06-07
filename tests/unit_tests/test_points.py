@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 def test_points_update_after_booking(client, mock_clubs, mock_competitions):

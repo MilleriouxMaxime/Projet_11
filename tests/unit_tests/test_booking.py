@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 def test_book_valid_competition(client, mock_clubs, mock_competitions):
