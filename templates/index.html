@@ -1,34 +1,30 @@
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GUDLFT Registration</title>
     <style>
-        .flash-message {
-            color: red;
-            margin: 10px 0;
-            padding: 5px;
-            border: 1px solid red;
-        }
+      .flash-message {
+        color: red;
+        margin: 10px 0;
+        padding: 5px;
+        border: 1px solid red;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>Welcome to the GUDLFT Registration Portal!</h1>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    {% for message in messages %}
+    <a href="{{ url_for('points') }}">View all clubs points</a><br />
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
     <div class="flash-message">{{ message }}</div>
-    {% endfor %}
-    {% endif %}
-    {% endwith %}
-    Please enter your secretary email to continue:
+    {% endfor %} {% endif %} {% endwith %} Please enter your secretary email to
+    continue:
     <form action="showSummary" method="post">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="" />
-        <button type="submit">Enter</button>
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="" />
+      <button type="submit">Enter</button>
     </form>
-</body>
-
+  </body>
 </html>

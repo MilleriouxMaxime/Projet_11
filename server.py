@@ -41,7 +41,7 @@ def showSummary():
             return redirect(url_for("index"))
 
         return render_template("welcome.html", club=club, competitions=competitions)
-    except Exception as e:
+    except Exception:
         flash("An error occurred. Please try again.")
         return redirect(url_for("index"))
 
@@ -76,7 +76,7 @@ def book(competition, club):
         return render_template(
             "booking.html", club=foundClub, competition=foundCompetition
         )
-    except Exception as e:
+    except Exception:
         flash("An error occurred. Please try again.")
         return render_template("welcome.html", club=club, competitions=competitions)
 
@@ -126,7 +126,7 @@ def points():
         # Sort clubs by points in descending order
         sorted_clubs = sorted(clubs, key=lambda x: int(x["points"]), reverse=True)
         return render_template("points.html", clubs=sorted_clubs)
-    except Exception as e:
+    except Exception:
         flash("An error occurred while loading points.")
         return redirect(url_for("index"))
 
